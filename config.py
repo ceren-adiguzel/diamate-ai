@@ -12,7 +12,7 @@ class Ayarlar:
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
     GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
     OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-    AI_PROVIDER = os.environ.get("AI_PROVIDER", "groq")
+    AI_PROVIDER = os.environ.get("AI_PROVIDER", "gemini")
     
     BUSINESS_CONTEXT = os.environ.get(
         "BUSINESS_CONTEXT",
