@@ -29,7 +29,7 @@ class YapayZekaServisi:
             return self._demo_yaniti_ver(kullanici_mesaji)
 
         # Kararlı v1 endpoint ve gemini-2.5-flash
-        baglanti_adresi = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_anahtari}"
+        baglanti_adresi = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_anahtari}"
         
         contents = []
         sistem_mesaji = self._sistem_talimati_olustur()
