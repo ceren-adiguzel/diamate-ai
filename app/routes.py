@@ -1,30 +1,21 @@
+import json
 from flask import Blueprint, request, jsonify, render_template
 from services.ai_service import yapay_zeka_servisi, YapayZekaServisHatasi
 from app.database import musteri_adayi_ekle, tum_adaylari_getir
 
-# Rotaları gruplandırmak için Blueprint nesneleri oluşturuyoruz
 api_arayuzu = Blueprint("api", __name__)
 sayfa_arayuzu = Blueprint("sayfalar", __name__)
 
-
-# ─── SAYFALAR (Arayüzler) ─────────────────────────────
-
 @sayfa_arayuzu.route("/")
 def karsilama_sayfasi():
-    """Kullanıcıya sunulan ana karşılama ve AI sohbet sayfası."""
     return render_template("index.html")
 
 @sayfa_arayuzu.route("/panel")
 def yonetim_paneli():
-    """Erken erişim ve demo taleplerinin listelendiği yönetim paneli."""
     return render_template("dashboard.html")
-
-
-# ─── API UÇ NOKTALARI (Endpoints) ──────────────────────
 
 @api_arayuzu.route("/sohbet", methods=["POST"])
 def sohbet_et():
-    """Ön yüzden gelen soruyu alır, AI servisine iletir ve cevabı döndürür."""
     veri = request.json or {}
     mesaj = veri.get("mesaj")
     gecmis = veri.get("gecmis", [])
@@ -40,20 +31,19 @@ def sohbet_et():
 
 @api_arayuzu.route("/adaylar", methods=["POST"])
 def aday_kaydet():
-    """İletişim/demo formundan gelen bilgileri veritabanına kaydeder."""
     veri = request.json or {}
     isim = veri.get("isim")
-    telefon = veri.get("telefon")
+    mail = veri.get("mail")
     mesaj = veri.get("mesaj", "")
 
-    if not isim or not telefon:
-        return jsonify({"basari": False, "hata": "İsim ve telefon bilgisi zorunludur."}), 400
+    if not isim or not mail:
+        return jsonify({"basari": False, "hata": "İsim ve mail bilgisi zorunludur."}), 400
 
-    musteri_adayi_ekle(isim, telefon, mesaj)
-    return jsonify({"basari": True, "mesaj": "Bilgileriniz başarıyla sistemimize kaydedildi."})
+    musteri_adayi_ekle(isim, mail, mesaj)
+    return json
+    y({"basari": True, "mesaj": "Bilgileriniz başarıyla sistemimize kaydedildi."})
 
 @api_arayuzu.route("/adaylar", methods=["GET"])
 def adaylari_listele():
-    """Yönetim paneli için tüm adayları JSON olarak döndürür."""
     adaylar = tum_adaylari_getir()
-    return jsonify({"basari": True, "toplam": len(adaylar), "adaylar": adaylar})
+    return jsonify({"basari": True, "toplam": len(adaylar), "leadler": adaylar})
