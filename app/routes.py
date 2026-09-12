@@ -37,11 +37,11 @@ def aday_kaydet():
     mesaj = veri.get("mesaj", "")
 
     if not isim or not mail:
-        return jsonify({"basari": False, "hata": "İsim ve mail bilgisi zorunludur."}), 400
+        # Mesajı özellikle değiştiriyoruz ki canlıda değişip değişmediğini anlasın
+        return jsonify({"basari": False, "hata": "TEST: İsim ve mail zorunludur (Guncellendi)"}), 400
 
     musteri_adayi_ekle(isim, mail, mesaj)
-    return json
-    y({"basari": True, "mesaj": "Bilgileriniz başarıyla sistemimize kaydedildi."})
+    return jsonify({"basari": True, "mesaj": "Bilgileriniz başarıyla sistemimize kaydedildi."})
 
 @api_arayuzu.route("/adaylar", methods=["GET"])
 def adaylari_listele():
